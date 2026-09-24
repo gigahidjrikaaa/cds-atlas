@@ -1,0 +1,176 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: var(--font-fraunces), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-spline), ui-monospace, "Cascadia Mono", monospace;
+
+  --color-paper: #f7f3ea;
+  --color-paper-deep: #efe8d9;
+  --color-card: #fcfaf4;
+  --color-ink: #211d15;
+  --color-ink-soft: #57503f;
+  --color-ink-faint: #8d8371;
+  --color-line: #d9cfba;
+  --color-line-soft: #e7dfcd;
+  --color-accent: #bc4b14;
+  --color-accent-deep: #963a0e;
+
+  --color-tech: #3056c8;
+  --color-fashion: #c02f6a;
+  --color-grooming: #2e7d3a;
+  --color-beauty: #8a3fb8;
+  --color-consumable: #a06b1a;
+  --color-sports: #0d7d8c;
+
+  --animate-marquee: marquee 48s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+html {
+  color-scheme: light;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---------- editorial helpers ---------- */
+
+.font-display {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 72;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+/* scroll-triggered reveal — only hidden when JS is available (html.js) */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* bar fills grow when their reveal container becomes visible */
+.bar-fill {
+  width: var(--bar-w, 0%);
+}
+
+.js .reveal:not(.is-visible) .bar-fill {
+  width: 0;
+  transition: width 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.25s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar-fill {
+    transition: none;
+  }
+}
+
+/* metaphor marquee */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: var(--animate-marquee);
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* giant outlined letter watermark */
+.letter-outline {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 144;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--color-line);
+  user-select: none;
+  line-height: 0.8;
+}
+
+/* paper grain overlay */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* underline-on-hover links in body copy */
+.link-quiet {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--color-line);
+  transition: text-decoration-color 0.2s ease, color 0.2s ease;
+}
+
+.link-quiet:hover {
+  text-decoration-color: var(--color-accent);
+  color: var(--color-accent-deep);
+}
+
+/* tabular figures where columns of data appear */
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
