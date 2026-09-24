@@ -28,7 +28,7 @@ export default function TablePage() {
         to see every dimension.
       </p>
 
-      <div className="mt-10 overflow-x-auto rounded-xl border border-line bg-card">
+      <div className="mt-10 overflow-x-auto border border-line bg-card">
         <table className="w-full min-w-[1240px] border-collapse text-left">
           <caption className="sr-only">
             Consumer Decision Survey — all 14 purchase stories across nine

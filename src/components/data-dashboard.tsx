@@ -33,7 +33,7 @@ function Card({
   className?: string;
 }) {
   return (
-    <div className={`rounded-xl border border-line bg-card p-6 ${className}`}>
+    <div className={`shadow-sheet border border-line bg-card p-6 ${className}`}>
       <h3 className="font-display text-xl font-semibold tracking-tight">
         {title}
       </h3>
@@ -65,9 +65,9 @@ function BarChart({
           <span className="tnum font-mono text-xs text-ink">
             {r.count}/{total}
           </span>
-          <span className="col-span-2 flex h-2 overflow-hidden rounded-full bg-line-soft">
+          <span className="col-span-2 flex h-2 bg-line-soft">
             <span
-              className={`bar-fill rounded-full ${color}`}
+              className={`bar-fill ${color}`}
               style={
                 { "--bar-w": `${(r.count / total) * 100}%` } as React.CSSProperties
               }
@@ -95,19 +95,31 @@ export function DataDashboard() {
           </p>
         </Reveal>
 
-        {/* headline stats */}
+        {/* headline stats — ruled band, no boxes */}
         <Reveal delay={80}>
-          <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line lg:grid-cols-4">
-            {headlineStats.map((s) => (
-              <div key={s.label} className="bg-card px-6 py-5">
-                <dd className="font-display tnum text-3xl font-semibold text-accent">
-                  {s.n}
-                </dd>
-                <dt className="mt-1 font-mono text-[10px] tracking-[0.14em] text-ink-faint uppercase">
-                  {s.label}
-                </dt>
-              </div>
-            ))}
+          <dl className="mt-10 grid grid-cols-2 border-y border-line sm:grid-cols-4">
+            {headlineStats.map((s, i) => {
+              /* mobile: 2×2 with inner rules; desktop: 4 columns with vertical rules */
+              const cellBorders = [
+                "border-r border-b sm:border-b-0",
+                "border-b sm:border-r sm:border-b-0",
+                "border-r",
+                "",
+              ][i];
+              return (
+                <div
+                  key={s.label}
+                  className={`border-line px-2 py-5 sm:px-6 ${cellBorders}`}
+                >
+                  <dd className="font-display tnum text-3xl font-semibold text-accent">
+                    {s.n}
+                  </dd>
+                  <dt className="mt-1 font-mono text-[10px] tracking-[0.14em] text-ink-faint uppercase">
+                    {s.label}
+                  </dt>
+                </div>
+              );
+            })}
           </dl>
         </Reveal>
 
@@ -153,12 +165,11 @@ export function DataDashboard() {
                         <span className="relative block h-5">
                           <span
                             aria-hidden
-                            className={`absolute top-1/2 h-px bg-line-soft`}
-                            style={{ left: 0, right: 0 }}
+                            className="absolute top-1/2 left-0 right-0 h-px bg-line-soft"
                           />
                           <span
                             aria-hidden
-                            className={`absolute top-1/2 size-3 -translate-x-1/2 -translate-y-1/2 rounded-full ring-3 ring-card ${s.dot}`}
+                            className={`absolute top-1/2 size-2.5 -translate-x-1/2 -translate-y-1/2 ring-2 ring-card ${s.dot}`}
                             style={{ left: `${pct(p.value)}%` }}
                           />
                         </span>

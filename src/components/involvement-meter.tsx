@@ -11,16 +11,11 @@ export function InvolvementMeter({
   const fill = involvementFill[level];
   return (
     <span className="inline-flex items-center gap-2">
-      <span
-        aria-hidden
-        className="flex w-16 items-center gap-1"
-      >
+      <span aria-hidden className="flex w-16 items-center gap-1">
         {[1, 2, 3].map((seg) => (
           <span
             key={seg}
-            className={`h-1.5 flex-1 rounded-full ${
-              seg <= fill ? "bg-ink" : "bg-line-soft"
-            }`}
+            className={`h-1.5 flex-1 ${seg <= fill ? "bg-ink" : "bg-line-soft"}`}
           />
         ))}
       </span>

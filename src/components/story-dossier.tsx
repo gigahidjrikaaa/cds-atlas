@@ -46,7 +46,7 @@ export function StoryDossier({
 }) {
   const pp = story.postPurchase;
   return (
-    <article className="flex flex-col border border-line bg-card shadow-[0_1px_0_var(--color-line)]">
+    <article className="shadow-sheet flex flex-col border border-line bg-card">
       {/* respondent header */}
       <header className="px-6 pt-6 pb-5 sm:px-8">
         <p className="font-mono text-[10px] tracking-[0.16em] text-ink-faint uppercase">
@@ -55,28 +55,21 @@ export function StoryDossier({
         <h3 className="font-display mt-1.5 text-2xl font-semibold tracking-tight text-balance">
           {story.respondent}
         </h3>
-        <ul className="mt-2 flex flex-wrap gap-x-1.5 gap-y-1">
-          {story.profile.map((p) => (
-            <li
-              key={p}
-              className="rounded-full bg-paper-deep px-2.5 py-1 text-xs text-ink-soft"
-            >
-              {p}
-            </li>
-          ))}
-        </ul>
+        <p className="mt-2 font-mono text-[11px] leading-relaxed text-ink-soft">
+          {story.profile.join(" · ")}
+        </p>
 
-        {/* product card */}
-        <div className="mt-4 rounded-lg border border-line bg-paper p-4">
-          <p className="flex flex-wrap items-center justify-between gap-2">
-            <span className="font-semibold">{story.product}</span>
+        {/* product line */}
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border border-line bg-paper px-4 py-3">
+          <span className="font-semibold">{story.product}</span>
+          <span className="flex items-center gap-3">
             <DomainChip domain={story.domain} />
-          </p>
-          {story.price && (
-            <p className="tnum mt-1 font-mono text-xs text-ink-soft">
-              {story.price}
-            </p>
-          )}
+            {story.price && (
+              <span className="tnum font-mono text-xs text-ink-soft">
+                {story.price}
+              </span>
+            )}
+          </span>
         </div>
 
         {/* involvement */}
@@ -132,15 +125,8 @@ export function StoryDossier({
 
       <Field n="08" label="Post-purchase & Metaphor">
         {pp.scores && (
-          <p className="flex flex-wrap gap-1.5">
-            {pp.scores.map((s) => (
-              <span
-                key={s}
-                className="tnum rounded-full border border-accent/25 bg-accent/8 px-2.5 py-1 font-mono text-[10px] tracking-[0.08em] text-accent-deep uppercase"
-              >
-                {s}
-              </span>
-            ))}
+          <p className="tnum font-mono text-[11px] tracking-[0.08em] text-accent-deep uppercase">
+            {pp.scores.join(" · ")}
           </p>
         )}
         <p>
@@ -153,12 +139,12 @@ export function StoryDossier({
           </p>
         ))}
         {pp.gapNote && (
-          <p className="rounded-md border border-dashed border-line px-3 py-2 text-xs text-ink-faint italic">
+          <p className="border-l-2 border-line pl-3 text-xs text-ink-faint italic">
             {pp.gapNote}
           </p>
         )}
         {pp.metaphor && (
-          <div className="mt-1 rounded-lg bg-ink p-4 text-paper">
+          <div className="mt-1 border-l-4 border-accent bg-ink p-4 text-paper">
             <p className="font-mono text-[10px] tracking-[0.16em] text-paper/50 uppercase">
               Relationship metaphor
             </p>

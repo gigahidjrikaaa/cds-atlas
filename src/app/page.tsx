@@ -12,6 +12,7 @@ import { domainStyles } from "@/components/domain-chip";
 import { InvolvementMeter } from "@/components/involvement-meter";
 import { Reveal } from "@/components/reveal";
 import { DataDashboard } from "@/components/data-dashboard";
+import { ArrowRightIcon, PlayIcon } from "@/components/icons";
 
 const stats = [
   { n: "7", label: "Case studies" },
@@ -84,39 +85,52 @@ export default function Home() {
             </p>
           </Reveal>
           <Reveal delay={240}>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+            <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
               <Link
                 href="/#cases"
-                className="rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper transition-colors hover:bg-accent-deep"
+                className="inline-flex items-center gap-2.5 border border-ink bg-ink px-6 py-3 font-mono text-xs tracking-[0.14em] text-paper uppercase transition-colors hover:border-accent-deep hover:bg-accent-deep"
               >
                 Explore the cases
+                <ArrowRightIcon className="text-accent" />
               </Link>
               <Link
                 href="/#insights"
-                className="rounded-full border border-ink/25 px-6 py-3 text-sm font-medium transition-colors hover:border-accent hover:text-accent-deep"
+                className="font-mono text-xs tracking-[0.14em] text-ink-soft uppercase underline-offset-4 decoration-line transition-colors hover:text-accent-deep hover:decoration-accent hover:underline"
               >
                 What surprised us
               </Link>
               <Link
                 href="/present"
-                className="inline-flex items-center gap-2 px-2 py-3 font-mono text-xs tracking-[0.14em] text-accent-deep uppercase hover:text-accent"
+                className="inline-flex items-center gap-2 font-mono text-xs tracking-[0.14em] text-accent-deep uppercase transition-colors hover:text-accent"
               >
-                <span aria-hidden>▶</span> Presenting? Open presentation mode
+                <PlayIcon className="text-accent" />
+                Open presentation mode
               </Link>
             </div>
           </Reveal>
           <Reveal delay={320}>
-            <dl className="mt-14 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-4">
-              {stats.map((s) => (
-                <div key={s.label} className="bg-card px-6 py-5">
-                  <dt className="order-2 font-mono text-[10px] tracking-[0.16em] text-ink-faint uppercase">
-                    {s.label}
-                  </dt>
-                  <dd className="font-display tnum text-4xl font-semibold text-accent">
-                    {s.n}
-                  </dd>
-                </div>
-              ))}
+            <dl className="mt-14 grid grid-cols-2 border-y border-line sm:grid-cols-4">
+              {stats.map((s, i) => {
+                const cellBorders = [
+                  "border-r border-b sm:border-b-0",
+                  "border-b sm:border-r sm:border-b-0",
+                  "border-r",
+                  "",
+                ][i];
+                return (
+                  <div
+                    key={s.label}
+                    className={`border-line px-2 py-5 sm:px-6 ${cellBorders}`}
+                  >
+                    <dd className="font-display tnum text-4xl font-semibold text-accent">
+                      {s.n}
+                    </dd>
+                    <dt className="mt-1 font-mono text-[10px] tracking-[0.16em] text-ink-faint uppercase">
+                      {s.label}
+                    </dt>
+                  </div>
+                );
+              })}
             </dl>
           </Reveal>
         </div>
@@ -136,7 +150,7 @@ export default function Home() {
                   className="flex items-center gap-3 pr-10"
                 >
                   <span
-                    className={`size-1.5 rounded-full ${domainStyles[m.domain].dot}`}
+                    className={`size-1.5 ${domainStyles[m.domain].dot}`}
                   />
                   <span className="font-display text-lg whitespace-nowrap italic">
                     {m.name}
@@ -159,10 +173,10 @@ export default function Home() {
             title="Nine lenses on one purchase."
             lede="Every interview in the survey is broken down with the same analytical structure — the nine columns of the comparison table. Read them once, and every case page becomes a story you already know how to read."
           />
-          <div className="mt-12 grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-12 grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
             {lenses.map((lens, i) => (
               <Reveal key={lens.n} delay={(i % 4) * 70} className="h-full">
-                <div className="flex h-full flex-col bg-card p-6">
+                <div className="flex h-full flex-col bg-paper p-6">
                   <p className="tnum font-mono text-[11px] text-accent">
                     {lens.n}
                   </p>
@@ -245,11 +259,11 @@ export default function Home() {
                       {c.stories.map((s) => (
                         <span
                           key={s.respondent + s.product}
-                          className="inline-flex items-center gap-1.5 rounded-full border border-line bg-card px-2.5 py-1 text-[11px] text-ink-soft"
+                          className="inline-flex items-center gap-1.5 border border-line bg-card px-2.5 py-1 text-[11px] text-ink-soft"
                         >
                           <span
                             aria-hidden
-                            className={`size-1.5 rounded-full ${domainStyles[s.domain].dot}`}
+                            className={`size-1.5 ${domainStyles[s.domain].dot}`}
                           />
                           {s.product}
                           {s.price && (
@@ -277,9 +291,9 @@ export default function Home() {
                   </span>
                   <span
                     aria-hidden
-                    className="font-display pr-1 text-2xl text-ink-faint transition-all group-hover:translate-x-1 group-hover:text-accent"
+                    className="pr-1 text-ink-faint transition-all group-hover:translate-x-1 group-hover:text-accent"
                   >
-                    →
+                    <ArrowRightIcon size={18} />
                   </span>
                 </Link>
               </Reveal>
@@ -312,10 +326,10 @@ export default function Home() {
             </p>
           </Reveal>
 
-          <div className="mt-14 space-y-px overflow-hidden rounded-xl bg-paper/15">
+          <div className="mt-14 border-t-2 border-accent">
             {insights.map((ins, i) => (
               <Reveal key={ins.n} delay={i * 50}>
-                <article className="bg-ink p-6 sm:p-10">
+                <article className="border-b border-paper/15 py-10 first:pt-12 last:pb-0 sm:py-12">
                   <div className="grid gap-6 lg:grid-cols-[1fr_1.4fr]">
                     <div>
                       <p className="tnum font-mono text-[11px] text-accent">
@@ -325,7 +339,7 @@ export default function Home() {
                         {ins.dimension}
                       </h3>
                     </div>
-                    <div className="rounded-lg border border-accent/40 bg-accent/10 p-5">
+                    <div className="border-l-2 border-accent bg-accent/10 p-5">
                       <p className="font-mono text-[10px] tracking-[0.16em] text-accent uppercase">
                         The surprise
                       </p>
@@ -362,7 +376,7 @@ export default function Home() {
                           >
                             <span
                               aria-hidden
-                              className={`mt-1.5 size-1.5 shrink-0 rounded-full ${domainStyles[w.domain === "all" ? "tech" : w.domain].dot}`}
+                              className={`mt-1.5 size-1.5 shrink-0 ${domainStyles[w.domain === "all" ? "tech" : w.domain].dot}`}
                             />
                             <span>
                               <strong className="font-semibold text-paper">
@@ -398,10 +412,10 @@ export default function Home() {
             title="What the group concluded."
             lede="Reading the fourteen stories as one dataset, the group revised its initial understanding of consumer involvement. Eight conclusions — on similarities, involvement, surprising cases, motivations, life stages, and how channels shape satisfaction."
           />
-          <div className="mt-12 grid gap-px overflow-hidden rounded-xl border border-line bg-line md:grid-cols-2">
+          <div className="mt-12 grid gap-px border border-line bg-line md:grid-cols-2">
             {groupAnalysis.map((note, i) => (
               <Reveal key={note.n} delay={(i % 2) * 70} className="h-full">
-                <article className="h-full bg-card p-6 sm:p-8">
+                <article className="h-full bg-paper p-6 sm:p-8">
                   <p className="tnum font-mono text-[11px] text-accent">
                     {note.n}
                   </p>
@@ -431,39 +445,41 @@ export default function Home() {
             title="Beyond the table — our reading."
             lede="Six more patterns emerge when the stories are cross-examined — about effort, money, ecosystems, timing, trust, and the words people use for the things they own."
           />
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-12 border-t border-line">
             {analysisNotes.map((note, i) => (
-              <Reveal key={note.n} delay={(i % 3) * 60} className="h-full">
-                <article className="flex h-full flex-col rounded-xl border border-line bg-card p-6">
-                  <p className="tnum font-mono text-[11px] text-accent">
+              <Reveal key={note.n} delay={i * 40}>
+                <article className="grid gap-x-10 gap-y-3 border-b border-line py-7 sm:grid-cols-[auto_1fr_1.5fr]">
+                  <p className="tnum font-display text-3xl font-semibold text-line sm:text-4xl">
                     {note.n}
                   </p>
-                  <h3 className="font-display mt-2 text-xl leading-snug font-semibold tracking-tight text-balance">
-                    {note.title}
-                  </h3>
-                  {note.body.map((para) => (
-                    <p
-                      key={para.slice(0, 32)}
-                      className="mt-3 text-[13.5px] leading-relaxed text-ink-soft"
-                    >
-                      {para}
-                    </p>
-                  ))}
-                  <p className="mt-auto pt-5">
-                    <span className="font-mono text-[10px] tracking-[0.14em] text-ink-faint uppercase">
-                      Seen in
-                    </span>
-                    <span className="mt-2 flex flex-wrap gap-1.5">
+                  <div>
+                    <h3 className="font-display text-xl leading-snug font-semibold tracking-tight text-balance sm:text-2xl">
+                      {note.title}
+                    </h3>
+                    <p className="mt-3 flex flex-wrap items-center gap-1.5">
+                      <span className="mr-1 font-mono text-[10px] tracking-[0.14em] text-ink-faint uppercase">
+                        Seen in
+                      </span>
                       {note.seenIn.map((ref) => (
                         <span
                           key={ref}
-                          className="rounded-full border border-line bg-paper-deep px-2.5 py-1 font-mono text-[10px] text-ink-soft"
+                          className="border border-line bg-card px-2 py-0.5 font-mono text-[10px] text-ink-soft"
                         >
                           {ref}
                         </span>
                       ))}
-                    </span>
-                  </p>
+                    </p>
+                  </div>
+                  <div>
+                    {note.body.map((para) => (
+                      <p
+                        key={para.slice(0, 32)}
+                        className="mt-2 text-sm leading-relaxed text-ink-soft first:mt-0"
+                      >
+                        {para}
+                      </p>
+                    ))}
+                  </div>
                 </article>
               </Reveal>
             ))}
@@ -479,34 +495,42 @@ export default function Home() {
             title="Thirteen purchases, thirteen metaphors."
             lede="The survey’s most memorable column: when asked about the product, every buyer reached for a metaphor. Together they form a vocabulary of how Indonesians relate to the things they own — Investment, Armor, Dependency, Best Friend, Partner."
           />
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <ol className="mt-12 border-t border-line">
             {metaphors.map((m, i) => (
-              <Reveal key={`${m.name}-${m.caseCode}`} delay={(i % 3) * 60}>
-                <figure className="flex h-full flex-col rounded-xl border border-line bg-card p-6 transition-shadow hover:shadow-[0_8px_24px_-12px_rgba(33,29,21,0.25)]">
-                  <span className="flex items-center gap-2">
+              <Reveal key={`${m.name}-${m.caseCode}`} delay={i * 30}>
+                <li className="group grid gap-x-8 gap-y-1 border-b border-line py-6 transition-colors hover:bg-paper-deep/50 sm:grid-cols-[3rem_1fr_auto] sm:items-baseline">
+                  <span className="tnum font-mono text-[11px] text-ink-faint">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div className="min-w-0">
+                    <blockquote className="font-display text-2xl leading-tight font-semibold tracking-tight text-balance italic transition-colors group-hover:text-accent-deep sm:text-3xl">
+                      “{m.name}”
+                    </blockquote>
+                    <p className="mt-1.5 max-w-xl text-sm leading-relaxed text-ink-soft">
+                      {m.meaning}
+                    </p>
+                  </div>
+                  <p className="flex items-center gap-2 font-mono text-[10px] tracking-[0.14em] text-ink-faint uppercase sm:justify-self-end sm:text-right">
                     <span
                       aria-hidden
-                      className={`size-1.5 rounded-full ${domainStyles[m.domain].dot}`}
+                      className={`size-1.5 ${domainStyles[m.domain].dot}`}
                     />
-                    <span className="font-mono text-[10px] tracking-[0.14em] text-ink-faint uppercase">
-                      {domainLabels[m.domain]} · {m.caseCode}
-                    </span>
-                  </span>
-                  <blockquote className="font-display mt-3 text-2xl leading-tight font-semibold tracking-tight text-balance italic">
-                    “{m.name}”
-                  </blockquote>
-                  <figcaption className="mt-2 text-sm leading-relaxed text-ink-soft">
-                    {m.meaning}
-                  </figcaption>
-                </figure>
+                    {domainLabels[m.domain]} · {m.caseCode}
+                  </p>
+                </li>
               </Reveal>
             ))}
-          </div>
+          </ol>
 
           <Reveal>
-            <div className="mt-14 rounded-xl border border-line bg-paper-deep p-8 sm:p-10">
-              <p className="eyebrow">The takeaway</p>
-              <p className="font-display mt-3 max-w-3xl text-2xl leading-snug font-medium tracking-tight text-balance sm:text-[1.7rem]">
+            <div className="mt-14 border-y-2 border-ink bg-paper-deep px-2 py-10 text-center sm:px-8">
+              <p
+                aria-hidden
+                className="font-display text-6xl leading-none font-semibold text-accent"
+              >
+                “
+              </p>
+              <p className="font-display mx-auto mt-2 max-w-3xl text-2xl leading-snug font-medium tracking-tight text-balance sm:text-[1.7rem]">
                 Buyers rarely describe products as products. Tech becomes an{" "}
                 <em>investment</em>, fashion becomes <em>armor</em>, and
                 routines become <em>dependencies</em> — the category shapes the
@@ -531,7 +555,7 @@ export default function Home() {
               >
                 <span
                   aria-hidden
-                  className={`size-1.5 rounded-full ${domainStyles[d].dot}`}
+                  className={`size-1.5 ${domainStyles[d].dot}`}
                 />
                 {domainLabels[d]}
               </span>

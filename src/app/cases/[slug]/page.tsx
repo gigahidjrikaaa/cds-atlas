@@ -63,7 +63,7 @@ export default async function CasePage({
 
         {c.sourceNote && (
           <Reveal>
-            <p className="mt-5 max-w-2xl rounded-md border border-dashed border-line bg-card px-4 py-3 text-xs leading-relaxed text-ink-faint">
+            <p className="mt-5 max-w-2xl border border-dashed border-line bg-card px-4 py-3 text-xs leading-relaxed text-ink-faint">
               Note: {c.sourceNote}
             </p>
           </Reveal>
@@ -80,7 +80,7 @@ export default async function CasePage({
         {/* prev / next */}
         <nav
           aria-label="Case pagination"
-          className="mt-16 grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2"
+          className="mt-16 grid gap-px border border-line bg-line sm:grid-cols-2"
         >
           <Link
             href={`/cases/${prev.slug}`}

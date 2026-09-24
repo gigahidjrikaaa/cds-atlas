@@ -5,38 +5,15 @@ export const domainStyles: Record<
   Domain,
   { dot: string; text: string; chip: string }
 > = {
-  tech: {
-    dot: "bg-tech",
-    text: "text-tech",
-    chip: "border-tech/25 bg-tech/8 text-tech",
-  },
-  fashion: {
-    dot: "bg-fashion",
-    text: "text-fashion",
-    chip: "border-fashion/25 bg-fashion/8 text-fashion",
-  },
-  grooming: {
-    dot: "bg-grooming",
-    text: "text-grooming",
-    chip: "border-grooming/25 bg-grooming/8 text-grooming",
-  },
-  beauty: {
-    dot: "bg-beauty",
-    text: "text-beauty",
-    chip: "border-beauty/25 bg-beauty/8 text-beauty",
-  },
-  consumable: {
-    dot: "bg-consumable",
-    text: "text-consumable",
-    chip: "border-consumable/25 bg-consumable/8 text-consumable",
-  },
-  sports: {
-    dot: "bg-sports",
-    text: "text-sports",
-    chip: "border-sports/25 bg-sports/8 text-sports",
-  },
+  tech: { dot: "bg-tech", text: "text-tech", chip: "border-line bg-card text-tech" },
+  fashion: { dot: "bg-fashion", text: "text-fashion", chip: "border-line bg-card text-fashion" },
+  grooming: { dot: "bg-grooming", text: "text-grooming", chip: "border-line bg-card text-grooming" },
+  beauty: { dot: "bg-beauty", text: "text-beauty", chip: "border-line bg-card text-beauty" },
+  consumable: { dot: "bg-consumable", text: "text-consumable", chip: "border-line bg-card text-consumable" },
+  sports: { dot: "bg-sports", text: "text-sports", chip: "border-line bg-card text-sports" },
 };
 
+/** Archival specimen tag: sharp corners, hairline border, square swatch. */
 export function DomainChip({
   domain,
   className = "",
@@ -47,9 +24,9 @@ export function DomainChip({
   const s = domainStyles[domain];
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[10px] tracking-[0.12em] uppercase ${s.chip} ${className}`}
+      className={`inline-flex items-center gap-1.5 border px-2 py-0.5 font-mono text-[10px] tracking-[0.12em] uppercase ${s.chip} ${className}`}
     >
-      <span aria-hidden className={`size-1.5 rounded-full ${s.dot}`} />
+      <span aria-hidden className={`size-1.5 ${s.dot}`} />
       {domainLabels[domain]}
     </span>
   );
@@ -58,7 +35,8 @@ export function DomainChip({
 export function DomainDot({ domain }: { domain: Domain }) {
   return (
     <span
-      className={`inline-block size-1.5 rounded-full ${domainStyles[domain].dot}`}
+      aria-hidden
+      className={`inline-block size-1.5 ${domainStyles[domain].dot}`}
     />
   );
 }

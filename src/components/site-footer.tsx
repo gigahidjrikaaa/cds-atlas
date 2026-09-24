@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { team } from "@/lib/data";
+import { PlayIcon } from "@/components/icons";
 
 export function SiteFooter() {
   return (
@@ -67,9 +68,10 @@ export function SiteFooter() {
           <div className="flex items-center gap-5">
             <Link
               href="/present"
-              className="font-mono text-[11px] tracking-[0.14em] text-accent-deep uppercase hover:text-accent"
+              className="inline-flex items-center gap-1.5 font-mono text-[11px] tracking-[0.14em] text-accent-deep uppercase transition-colors hover:text-accent"
             >
-              ▶ Presentation mode
+              <PlayIcon />
+              Presentation mode
             </Link>
             <p className="font-mono text-[11px] tracking-[0.14em] text-ink-faint uppercase">
               Next.js · Vercel

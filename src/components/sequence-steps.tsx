@@ -5,7 +5,7 @@ export function SequenceSteps({ steps }: { steps: string[] }) {
         <li key={i} className="relative py-2 pl-7">
           <span
             aria-hidden
-            className="tnum absolute top-2.5 -left-[13px] grid size-6 place-items-center rounded-full border border-line bg-card font-mono text-[10px] text-ink-soft"
+            className="tnum absolute top-2.5 -left-[11px] grid size-[22px] place-items-center border border-line bg-card font-mono text-[10px] text-ink-soft"
           >
             {i + 1}
           </span>

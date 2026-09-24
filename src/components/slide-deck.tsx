@@ -21,6 +21,12 @@ import {
   involvementLabel,
 } from "@/lib/data";
 import { DomainChip, domainStyles } from "@/components/domain-chip";
+import {
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  CloseIcon,
+  ExpandIcon,
+} from "@/components/icons";
 
 type SlideDef =
   | { kind: "title" }
@@ -182,7 +188,7 @@ function CaseSlide({ caseIdx }: { caseIdx: number }) {
         {c.stories.map((s, i) => (
           <li
             key={s.respondent}
-            className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-lg border border-line bg-card px-5 py-3.5"
+            className="flex flex-wrap items-center gap-x-4 gap-y-2 border border-line bg-card px-5 py-3.5"
           >
             <span className="tnum font-mono text-[10px] text-ink-faint">
               {String(i + 1).padStart(2, "0")}
@@ -251,7 +257,7 @@ function StorySlide({
             {s.profile.join(" · ")}
           </p>
         </div>
-        <div className="rounded-lg border border-line bg-card px-5 py-3 text-right">
+        <div className="mt-3 border border-line bg-paper px-5 py-3.5 text-right">
           <p className="text-sm font-semibold">{s.product}</p>
           <p className="mt-1 flex items-center justify-end gap-2">
             <DomainChip domain={s.domain} />
@@ -292,7 +298,7 @@ function StorySlide({
             {s.channel.steps.map((step, i) => (
               <li
                 key={i}
-                className="flex items-center gap-1.5 rounded-full border border-line bg-card px-2.5 py-1 text-[11px] text-ink-soft"
+                className="flex items-center gap-1.5 border border-line bg-card px-2 py-0.5 text-[11px] text-ink-soft"
               >
                 <span
                   aria-hidden
@@ -307,7 +313,7 @@ function StorySlide({
         </MiniField>
       </div>
 
-      <div className="flex flex-col gap-3 rounded-xl bg-ink p-5 text-paper sm:flex-row sm:items-center">
+      <div className="flex flex-col gap-3 border-l-4 border-accent bg-ink p-5 text-paper sm:flex-row sm:items-center">
         <div className="min-w-0 flex-1">
           <p className="font-mono text-[10px] tracking-[0.16em] text-paper/50 uppercase">
             {pp.scores ? pp.scores.join(" · ") + " — " : ""}Relationship
@@ -348,7 +354,7 @@ function InsightSlide({ idx }: { idx: number }) {
       <h2 className="font-display mt-3 text-3xl font-semibold tracking-tight text-balance sm:text-5xl">
         {ins.dimension}
       </h2>
-      <div className="mt-6 rounded-lg border border-accent/40 bg-accent/10 p-5">
+      <div className="mt-6 border-l-2 border-accent bg-accent/10 p-5">
         <p className="font-mono text-[10px] tracking-[0.16em] text-accent uppercase">
           The surprise
         </p>
@@ -381,7 +387,7 @@ function InsightSlide({ idx }: { idx: number }) {
               >
                 <span
                   aria-hidden
-                  className={`mt-1.5 size-1.5 shrink-0 rounded-full ${domainStyles[w.domain === "all" ? "tech" : w.domain].dot}`}
+                  className={`mt-1.5 size-1.5 shrink-0 ${domainStyles[w.domain === "all" ? "tech" : w.domain].dot}`}
                 />
                 <span>
                   <strong className="font-semibold text-ink">{w.label}:</strong>{" "}
@@ -452,7 +458,7 @@ function PatternsSlide({ idx }: { idx: number }) {
               {note.seenIn.map((ref) => (
                 <span
                   key={ref}
-                  className="rounded-full border border-line bg-card px-2 py-0.5 font-mono text-[10px] text-ink-soft"
+                  className="border border-line bg-card px-2 py-0.5 font-mono text-[10px] text-ink-soft"
                 >
                   {ref}
                 </span>
@@ -477,7 +483,7 @@ function MetaphorsSlide() {
           <li key={`${m.name}-${m.caseCode}`} className="flex gap-2.5">
             <span
               aria-hidden
-              className={`mt-2 size-1.5 shrink-0 rounded-full ${domainStyles[m.domain].dot}`}
+              className={`mt-2 size-1.5 shrink-0 ${domainStyles[m.domain].dot}`}
             />
             <span>
               <span className="font-display block text-lg leading-tight font-semibold italic">
@@ -658,7 +664,7 @@ export function SlideDeck() {
       </div>
 
       {/* top chrome */}
-      <div className="flex items-center justify-between px-5 py-3 sm:px-8">
+      <div className="flex items-center justify-between border-b border-line px-5 py-3 sm:px-8">
         <p className="font-mono text-[10px] tracking-[0.16em] text-ink-faint uppercase">
           CDS Atlas · Presentation
         </p>
@@ -667,9 +673,10 @@ export function SlideDeck() {
             type="button"
             onClick={toggleFullscreen}
             aria-label="Toggle fullscreen (F)"
-            className="rounded-full border border-line px-3 py-1.5 font-mono text-[10px] tracking-[0.12em] text-ink-soft uppercase transition-colors hover:border-accent hover:text-accent"
+            className="inline-flex items-center gap-1.5 border border-line bg-card px-3 py-1.5 font-mono text-[10px] tracking-[0.12em] text-ink-soft uppercase transition-colors hover:border-ink hover:text-ink"
           >
-            ⛶ Fullscreen
+            <ExpandIcon className="text-accent" />
+            Fullscreen
           </button>
           <Link
             href="/"
@@ -678,9 +685,10 @@ export function SlideDeck() {
               exit();
             }}
             aria-label="Exit presentation (Escape)"
-            className="rounded-full border border-line px-3 py-1.5 font-mono text-[10px] tracking-[0.12em] text-ink-soft uppercase transition-colors hover:border-accent hover:text-accent"
+            className="inline-flex items-center gap-1.5 border border-line bg-card px-3 py-1.5 font-mono text-[10px] tracking-[0.12em] text-ink-soft uppercase transition-colors hover:border-ink hover:text-ink"
           >
-            ✕ Exit
+            <CloseIcon className="text-accent" />
+            Exit
           </Link>
         </div>
       </div>
@@ -707,7 +715,7 @@ export function SlideDeck() {
       </div>
 
       {/* bottom chrome */}
-      <div className="flex items-center justify-between gap-4 px-5 py-3 sm:px-8">
+      <div className="flex items-center justify-between gap-4 border-t border-line px-5 py-3 sm:px-8">
         <p className="min-w-0 truncate font-mono text-[10px] tracking-[0.14em] text-ink-faint uppercase">
           {meta.section} — {meta.label}
         </p>
@@ -723,25 +731,25 @@ export function SlideDeck() {
             onClick={prev}
             disabled={index === 1}
             aria-label="Previous slide (←)"
-            className="grid size-9 place-items-center rounded-full border border-line text-ink transition-colors hover:border-accent hover:text-accent disabled:opacity-30 disabled:hover:border-line disabled:hover:text-ink"
+            className="grid size-9 place-items-center border border-line bg-card text-ink transition-colors hover:border-ink disabled:opacity-30 disabled:hover:border-line"
           >
-            <span aria-hidden>←</span>
+            <ArrowLeftIcon />
           </button>
           <button
             type="button"
             onClick={next}
             disabled={index === total}
             aria-label="Next slide (→)"
-            className="grid size-9 place-items-center rounded-full border border-line text-ink transition-colors hover:border-accent hover:text-accent disabled:opacity-30 disabled:hover:border-line disabled:hover:text-ink"
+            className="grid size-9 place-items-center border border-line bg-card text-ink transition-colors hover:border-ink disabled:opacity-30 disabled:hover:border-line"
           >
-            <span aria-hidden>→</span>
+            <ArrowRightIcon />
           </button>
         </div>
       </div>
 
       {/* first-slide hint */}
       {index === 1 && (
-        <p className="pointer-events-none absolute bottom-16 left-1/2 -translate-x-1/2 rounded-full border border-line bg-card px-4 py-1.5 font-mono text-[10px] tracking-[0.12em] whitespace-nowrap text-ink-faint uppercase">
+        <p className="pointer-events-none absolute bottom-16 left-1/2 -translate-x-1/2 border border-line bg-card px-4 py-1.5 font-mono text-[10px] tracking-[0.12em] whitespace-nowrap text-ink-faint uppercase">
           Navigate: → ← keys · swipe · F fullscreen · ESC exit
         </p>
       )}
