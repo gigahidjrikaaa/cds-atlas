@@ -69,10 +69,10 @@ export default async function CasePage({
           </Reveal>
         )}
 
-        <div className="mt-12 grid items-start gap-6 lg:grid-cols-2 lg:gap-8">
+        <div className="mt-12 space-y-10 sm:space-y-12">
           {c.stories.map((story, i) => (
-            <Reveal key={story.respondent} delay={i * 90}>
-              <StoryDossier story={story} index={i} />
+            <Reveal key={story.respondent} delay={i * 60}>
+              <StoryDossier story={story} index={i} caseCode={c.code} />
             </Reveal>
           ))}
         </div>

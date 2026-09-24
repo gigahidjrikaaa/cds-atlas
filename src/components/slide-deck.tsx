@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import {
   useCallback,
   useEffect,
@@ -193,7 +194,20 @@ function CaseSlide({ caseIdx }: { caseIdx: number }) {
             <span className="tnum font-mono text-[10px] text-ink-faint">
               {String(i + 1).padStart(2, "0")}
             </span>
-            <span className="text-sm font-semibold">{s.respondent}</span>
+            <span className="flex items-center gap-3">
+              {s.image && (
+                <span className="relative block size-10 border border-line bg-paper-deep">
+                  <Image
+                    src={s.image}
+                    alt={s.imageAlt ?? s.product}
+                    fill
+                    sizes="40px"
+                    className="object-cover"
+                  />
+                </span>
+              )}
+              <span className="text-sm font-semibold">{s.respondent}</span>
+            </span>
             <span className="text-sm text-ink-soft">{s.product}</span>
             <DomainChip domain={s.domain} />
             {s.price && (
@@ -257,13 +271,24 @@ function StorySlide({
             {s.profile.join(" · ")}
           </p>
         </div>
-        <div className="mt-3 border border-line bg-paper px-5 py-3.5 text-right">
+        <div className="mt-3 border border-line bg-paper px-4 py-3 text-right">
           <p className="text-sm font-semibold">{s.product}</p>
-          <p className="mt-1 flex items-center justify-end gap-2">
+          <p className="mt-1.5 flex items-center justify-end gap-3">
             <DomainChip domain={s.domain} />
             {s.price && (
               <span className="tnum font-mono text-xs text-ink-faint">
                 {s.price}
+              </span>
+            )}
+            {s.image && (
+              <span className="relative block size-14 border border-line bg-paper-deep">
+                <Image
+                  src={s.image}
+                  alt={s.imageAlt ?? s.product}
+                  fill
+                  sizes="56px"
+                  className="object-cover"
+                />
               </span>
             )}
           </p>

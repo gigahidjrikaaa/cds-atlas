@@ -1,8 +1,14 @@
+import Image from "next/image";
 import type { Story } from "@/lib/data";
 import { DomainChip } from "@/components/domain-chip";
 import { InvolvementMeter } from "@/components/involvement-meter";
 import { SequenceSteps } from "@/components/sequence-steps";
 
+/**
+ * One dimension row of the dossier: mono number + label in a fixed left
+ * column, content on the right — a spec-sheet hierarchy with clear
+ * separation between fields.
+ */
 function Field({
   n,
   label,
@@ -13,18 +19,14 @@ function Field({
   children: React.ReactNode;
 }) {
   return (
-    <section className="border-t border-line-soft px-6 py-5 sm:px-8">
-      <p className="flex items-baseline gap-2">
-        <span aria-hidden className="tnum font-mono text-[10px] text-accent">
+    <section className="grid gap-x-6 gap-y-2 border-t border-line px-6 py-5 sm:grid-cols-[10.5rem_1fr] sm:gap-y-0 sm:px-8">
+      <p className="font-mono text-[10px] leading-5 tracking-[0.16em] text-ink-faint uppercase">
+        <span aria-hidden className="tnum mr-2 text-accent">
           {n}
         </span>
-        <span className="font-mono text-[10px] tracking-[0.16em] text-ink-faint uppercase">
-          {label}
-        </span>
+        {label}
       </p>
-      <div className="mt-2.5 space-y-2 text-[14.5px] leading-relaxed">
-        {children}
-      </div>
+      <div className="space-y-2 text-[14.5px] leading-relaxed">{children}</div>
     </section>
   );
 }
@@ -37,54 +39,116 @@ function MonoLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
+function ProductPhoto({ story }: { story: Story }) {
+  if (story.image) {
+    return (
+      <div className="relative aspect-square overflow-hidden border border-line bg-paper-deep">
+        <Image
+          src={story.image}
+          alt={story.imageAlt ?? story.product}
+          fill
+          sizes="(min-width: 768px) 168px, 128px"
+          className="object-cover"
+        />
+      </div>
+    );
+  }
+  /* designed placeholder when no photo exists */
+  return (
+    <div
+      aria-hidden
+      className="relative flex aspect-square flex-col items-center justify-center border border-line bg-paper-deep p-3 text-center"
+    >
+      <span className="font-display text-4xl leading-none font-semibold text-line">
+        {story.product.slice(0, 1)}
+      </span>
+      {story.imageNote && (
+        <span className="mt-2 font-mono text-[8.5px] leading-snug tracking-[0.08em] text-ink-faint uppercase">
+          {story.imageNote}
+        </span>
+      )}
+    </div>
+  );
+}
+
 export function StoryDossier({
   story,
   index,
+  caseCode,
 }: {
   story: Story;
   index: number;
+  caseCode: string;
 }) {
   const pp = story.postPurchase;
   return (
-    <article className="shadow-sheet flex flex-col border border-line bg-card">
-      {/* respondent header */}
-      <header className="px-6 pt-6 pb-5 sm:px-8">
+    <article className="shadow-sheet border border-line bg-card">
+      {/* story band */}
+      <header className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-b-2 border-ink px-6 pt-5 pb-4 sm:px-8">
         <p className="font-mono text-[10px] tracking-[0.16em] text-ink-faint uppercase">
-          Story {String(index + 1).padStart(2, "0")}
+          <span className="tnum mr-2 text-accent">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          {caseCode} · Purchase story
         </p>
-        <h3 className="font-display mt-1.5 text-2xl font-semibold tracking-tight text-balance">
+        <p className="font-mono text-[10px] tracking-[0.16em] text-ink-faint uppercase">
+          Story {index + 1} of 2
+        </p>
+      </header>
+
+      {/* respondent */}
+      <header className="px-6 pt-5 pb-5 sm:px-8">
+        <h3 className="font-display text-3xl font-semibold tracking-tight">
           {story.respondent}
         </h3>
-        <p className="mt-2 font-mono text-[11px] leading-relaxed text-ink-soft">
+        <p className="mt-1.5 font-mono text-[11px] leading-relaxed text-ink-soft">
           {story.profile.join(" · ")}
         </p>
+      </header>
 
-        {/* product line */}
-        <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border border-line bg-paper px-4 py-3">
-          <span className="font-semibold">{story.product}</span>
-          <span className="flex items-center gap-3">
+      {/* product block: photo + identity */}
+      <section className="mx-6 mb-6 grid grid-cols-[7rem_1fr] gap-4 border border-line bg-paper p-4 sm:mx-8 sm:grid-cols-[8.5rem_1fr] sm:gap-5">
+        <ProductPhoto story={story} />
+        <div className="min-w-0">
+          <p className="font-mono text-[10px] tracking-[0.16em] text-ink-faint uppercase">
+            <span aria-hidden className="tnum mr-2 text-accent">
+              02
+            </span>
+            The product
+          </p>
+          <p className="font-display mt-1.5 text-xl leading-snug font-semibold tracking-tight text-balance">
+            {story.product}
+          </p>
+          <p className="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1.5">
             <DomainChip domain={story.domain} />
             {story.price && (
               <span className="tnum font-mono text-xs text-ink-soft">
                 {story.price}
               </span>
             )}
-          </span>
+          </p>
         </div>
+      </section>
 
-        {/* involvement */}
-        <div className="mt-4">
-          <p className="flex items-center gap-3">
-            <MonoLabel>Involvement</MonoLabel>
+      {/* involvement */}
+      <section className="grid gap-x-6 gap-y-2 border-t border-line px-6 py-5 sm:grid-cols-[10.5rem_1fr] sm:gap-y-0 sm:px-8">
+        <p className="font-mono text-[10px] leading-5 tracking-[0.16em] text-ink-faint uppercase">
+          <span aria-hidden className="tnum mr-2 text-accent">
+            03
+          </span>
+          Involvement
+        </p>
+        <div className="space-y-2">
+          <p>
             <InvolvementMeter level={story.involvement.level} />
           </p>
-          <p className="mt-2 text-sm leading-relaxed text-ink-soft">
+          <p className="text-[14.5px] leading-relaxed text-ink-soft">
             {story.involvement.text}
           </p>
         </div>
-      </header>
+      </section>
 
-      <Field n="04" label="Buying Center (DMU)">
+      <Field n="04" label="Buying center (DMU)">
         <p>{story.dmu.roles}</p>
         {story.dmu.influencer && (
           <p>
@@ -94,7 +158,7 @@ export function StoryDossier({
         )}
       </Field>
 
-      <Field n="05" label="Trigger & Source">
+      <Field n="05" label="Trigger & source">
         <p>
           <MonoLabel>Need · </MonoLabel>
           <span className="text-ink-soft">{story.trigger.need}</span>
@@ -105,7 +169,7 @@ export function StoryDossier({
         </p>
       </Field>
 
-      <Field n="06" label="Alternatives Evaluated">
+      <Field n="06" label="Alternatives evaluated">
         <p>
           <MonoLabel>Considered · </MonoLabel>
           <span className="text-ink-soft">
@@ -118,12 +182,12 @@ export function StoryDossier({
         </p>
       </Field>
 
-      <Field n="07" label="Purchase Channel & Sequence">
+      <Field n="07" label="Channel & sequence">
         <p className="font-medium">{story.channel.name}</p>
         <SequenceSteps steps={story.channel.steps} />
       </Field>
 
-      <Field n="08" label="Post-purchase & Metaphor">
+      <Field n="08" label="Post-purchase & metaphor">
         {pp.scores && (
           <p className="tnum font-mono text-[11px] tracking-[0.08em] text-accent-deep uppercase">
             {pp.scores.join(" · ")}

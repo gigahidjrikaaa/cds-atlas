@@ -44,6 +44,9 @@ export interface Story {
   product: string;
   domain: Domain;
   price?: string;
+  image?: string;
+  imageAlt?: string;
+  imageNote?: string;
   involvement: { level: InvolvementLevel; text: string };
   dmu: { roles: string; influencer?: string };
   trigger: { need: string; source: string };
@@ -88,6 +91,8 @@ export const cases: CaseStudy[] = [
         product: "Revlon Lipstick",
         domain: "beauty",
         price: "IDR 75,000",
+        image: "/products/revlon-lipstick.png",
+        imageAlt: "Revlon lipsticks in gold cases",
         involvement: {
           level: "moderate",
           text: "Moderate involvement: a deliberate, multi-day information search — reading reviews and comparing brands — despite it being an ordinary depletion repurchase.",
@@ -130,6 +135,7 @@ export const cases: CaseStudy[] = [
         product: "Cigarettes (premium tier)",
         domain: "consumable",
         price: "IDR 40,000",
+        imageNote: "No product photo — the survey does not name the brand.",
         involvement: {
           level: "high",
           text: "High involvement: a highly calculated process for a routine consumable — budget checks and specific vlog reviews — because of the item’s premium price point.",
@@ -181,6 +187,8 @@ export const cases: CaseStudy[] = [
         product: "iPad Air 5",
         domain: "tech",
         price: "IDR 9.5 M",
+        image: "/products/ipad-air-5.jpg",
+        imageAlt: "Apple iPad Air (5th generation) in blue, front and back",
         involvement: {
           level: "high",
           text: "High involvement / complex buying behavior: compared Apple and Samsung, conducted an extensive information search, and evaluated long-term use, budget, productivity and ecosystem.",
@@ -221,6 +229,8 @@ export const cases: CaseStudy[] = [
         product: "Michael Kors Bag",
         domain: "fashion",
         price: "IDR 6 M",
+        image: "/products/michael-kors-bag.jpeg",
+        imageAlt: "Brown Michael Kors signature monogram tote bag",
         involvement: {
           level: "high",
           text: "High involvement / complex buying behavior: compared Michael Kors, Coach and Pedro on price, quality, design and authenticity; the purchase was ultimately triggered by a discount.",
@@ -274,6 +284,8 @@ export const cases: CaseStudy[] = [
         product: "Samsung Galaxy S24 Ultra (Titanium Black)",
         domain: "tech",
         price: "≈ IDR 21 M",
+        image: "/products/galaxy-s24-ultra.jpg",
+        imageAlt: "Samsung Galaxy S24 Ultra box with the S Pen",
         involvement: {
           level: "high",
           text: "High involvement: two months of careful consideration covering ROI, trade-in value and 7-year software updates.",
@@ -315,6 +327,8 @@ export const cases: CaseStudy[] = [
         product: "iPhone 15 Pro (Natural Titanium, 256 GB)",
         domain: "tech",
         price: "≈ IDR 19 M",
+        image: "/products/iphone-15-pro.jpg",
+        imageAlt: "iPhone 15 Pro in Natural Titanium, rear camera detail",
         involvement: {
           level: "hybrid",
           text: "Moderate-to-high / hybrid: saved since last semester and did a month of visual research, yet executed spontaneously — driven by mood.",
@@ -366,6 +380,8 @@ export const cases: CaseStudy[] = [
         product: "Sariayu Body Splash Cologne",
         domain: "grooming",
         price: "IDR 44,000",
+        image: "/products/sariayu-body-splash.jpg",
+        imageAlt: "Sariayu Martha Tilaar Tanjung body mist, cologne and lotion",
         involvement: {
           level: "low",
           text: "Low involvement: a habitual purchase with no active search or comparison — the decision is close to automatic.",
@@ -409,6 +425,8 @@ export const cases: CaseStudy[] = [
         product: "Tancho Black Natural Hair Color",
         domain: "grooming",
         price: "IDR 35,000",
+        image: "/products/tancho-hair-color.jpg",
+        imageAlt: "Tancho Hair Dye box, natural black",
         involvement: {
           level: "low",
           text: "Low-to-moderate involvement: the purchase itself is routine and largely unresearched, but the outcome — appearance and professional image — carries more personal significance, sustaining strong repeat commitment.",
@@ -461,6 +479,8 @@ export const cases: CaseStudy[] = [
         profile: ["Age 22", "Final-year Public Policy Management student", "Lives with parents"],
         product: "Apple iPhone 17 Pro",
         domain: "tech",
+        image: "/products/iphone-17-pro.jpg",
+        imageAlt: "iPhone 17 Pro in Cosmic Orange, rear view",
         involvement: {
           level: "high",
           text: "High involvement: deliberate consideration of whether a new device is a “significant upgrade”; used daily across all routine environments as an essential schedule and task manager.",
@@ -500,6 +520,8 @@ export const cases: CaseStudy[] = [
         profile: ["Age 22", "Final-year Informatics student", "Lives with parents"],
         product: "Apple iPad (10th gen, 2024)",
         domain: "tech",
+        image: "/products/ipad-10th-gen.jpg",
+        imageAlt: "Apple iPad (10th generation) in blue, front and back",
         involvement: {
           level: "high",
           text: "High involvement: rigorous pre-purchase research on practical usability, feature set, software integration and opportunity costs; his daily primary tool for tasks, work and relaxation.",
@@ -550,6 +572,8 @@ export const cases: CaseStudy[] = [
         profile: ["Age 23", "Recent International Relations graduate", "Lives with parents"],
         product: "Kate Spade Handbag",
         domain: "fashion",
+        image: "/products/kate-spade-bag.png",
+        imageAlt: "Red Kate Spade leather bag with gold spade logo",
         involvement: {
           level: "moderate",
           text: "Moderate involvement: evaluating 3 years of use — durability, easy maintenance, practicality, and design comparison with other brands.",
@@ -589,6 +613,8 @@ export const cases: CaseStudy[] = [
         profile: ["Age 23", "Recent Mechanical Engineering graduate", "Lives with parents"],
         product: "New Balance 1906R Shoes",
         domain: "fashion",
+        image: "/products/new-balance-1906r.jpg",
+        imageAlt: "New Balance 1906R sneaker in taupe, side view",
         involvement: {
           level: "high",
           text: "High involvement: a relatively high price, price–performance consideration, durability, weather resistance, and comparison with alternative brands.",
@@ -640,6 +666,8 @@ export const cases: CaseStudy[] = [
         product: "Samsung Galaxy S25",
         domain: "tech",
         price: "IDR 14,000,000 (2025)",
+        image: "/products/galaxy-s25.jpg",
+        imageAlt: "Samsung Galaxy S25 in navy, rear view",
         involvement: {
           level: "high",
           text: "High involvement: online search, YouTube reviews, expert opinions and 2–3 store-counter visits until it felt physically right (“srek”). Not an impulse buy — her usual phone replacement cycle is 4–5 years.",
@@ -685,6 +713,8 @@ export const cases: CaseStudy[] = [
         product: "Cuetec Shane van Boening Billiard Cue",
         domain: "sports",
         price: "IDR 8,500,000",
+        image: "/products/cuetec-cue.jpg",
+        imageAlt: "Two-piece Cuetec pool cue",
         involvement: {
           level: "moderate-high",
           text: "Moderate-to-high involvement: already searching other cues, comparing price and brand, and had previously tried this exact stick. Time-to-purchase ~2 weeks — accelerated when a relative offered it cheap.",
