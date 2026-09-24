@@ -116,7 +116,7 @@ export function DataDashboard() {
           <div className="mt-6">
             <Card
               title="The price spectrum"
-              note="All 8 purchases with a stated price, on a logarithmic scale — two worlds: one under IDR 100 K, a cluster between IDR 6–21 M. The 6 stories without a stated price are excluded."
+              note="All 10 purchases with a stated price, on a logarithmic scale — two worlds: a low tier under IDR 100 K and a cluster between IDR 6–21 M. The 4 stories without a stated price are excluded."
               className="overflow-x-auto"
             >
               <div className="min-w-[540px]">

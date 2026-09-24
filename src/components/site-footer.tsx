@@ -29,25 +29,32 @@ export function SiteFooter() {
               {team.map((m) => (
                 <li
                   key={m.role}
-                  className="flex items-baseline gap-4 py-3.5"
+                  className="flex items-baseline gap-4 py-3"
                 >
                   <span className="font-display w-6 text-lg font-semibold text-accent">
                     {m.role}
                   </span>
-                  <span className="text-[15px] font-medium">{m.name}</span>
-                  <span className="tnum font-mono text-xs text-ink-faint">
+                  <span className="text-[14px] font-medium">{m.name}</span>
+                  <span className="tnum ml-auto font-mono text-xs text-ink-faint">
                     {m.id}
                   </span>
                 </li>
               ))}
             </ul>
-            <p className="mt-3 text-xs leading-relaxed text-ink-faint">
-              Team members B, C and E are unnamed in the source document; their
-              cases are credited to “Team member” accordingly.
+            <p className="mt-4 text-sm text-ink-soft">
+              Live site:{" "}
+              <a
+                href="https://cds-g4-atlas.vercel.app/"
+                className="link-quiet tnum font-mono text-xs"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                cds-g4-atlas.vercel.app
+              </a>
             </p>
             <Link
               href="/#cases"
-              className="link-quiet mt-6 inline-block font-mono text-xs tracking-[0.14em] uppercase"
+              className="link-quiet mt-4 inline-block font-mono text-xs tracking-[0.14em] uppercase"
             >
               Back to the case index ↑
             </Link>
@@ -57,9 +64,17 @@ export function SiteFooter() {
           <p className="font-mono text-[11px] tracking-[0.14em] text-ink-faint uppercase">
             Consumer Behavior · MK3 · Week 4
           </p>
-          <p className="font-mono text-[11px] tracking-[0.14em] text-ink-faint uppercase">
-            Next.js · Vercel
-          </p>
+          <div className="flex items-center gap-5">
+            <Link
+              href="/present"
+              className="font-mono text-[11px] tracking-[0.14em] text-accent-deep uppercase hover:text-accent"
+            >
+              ▶ Presentation mode
+            </Link>
+            <p className="font-mono text-[11px] tracking-[0.14em] text-ink-faint uppercase">
+              Next.js · Vercel
+            </p>
+          </div>
         </div>
       </div>
     </footer>

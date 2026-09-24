@@ -6,6 +6,7 @@ import {
   metaphors,
   domainLabels,
   analysisNotes,
+  groupAnalysis,
 } from "@/lib/data";
 import { domainStyles } from "@/components/domain-chip";
 import { InvolvementMeter } from "@/components/involvement-meter";
@@ -74,7 +75,7 @@ export default function Home() {
           <Reveal delay={160}>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft">
               The group interviewed 14 Indonesian consumers about their latest
-              purchases — from a IDR&nbsp;40,000 pack of cigarettes to a{" "}
+              purchases — from a IDR&nbsp;35,000 hair-color touch-up to a{" "}
               <span className="tnum">IDR&nbsp;21&nbsp;M</span> smartphone — and
               mapped every decision across nine dimensions of consumer
               behavior. This site makes the table readable: browse the seven
@@ -95,6 +96,12 @@ export default function Home() {
                 className="rounded-full border border-ink/25 px-6 py-3 text-sm font-medium transition-colors hover:border-accent hover:text-accent-deep"
               >
                 What surprised us
+              </Link>
+              <Link
+                href="/present"
+                className="inline-flex items-center gap-2 px-2 py-3 font-mono text-xs tracking-[0.14em] text-accent-deep uppercase hover:text-accent"
+              >
+                <span aria-hidden>▶</span> Presenting? Open presentation mode
               </Link>
             </div>
           </Reveal>
@@ -383,21 +390,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ============ BEYOND THE TABLE ============ */}
-      <section
-        id="analysis"
-        className="scroll-mt-20 border-b border-line"
-      >
+      {/* ============ GROUP ANALYSIS ============ */}
+      <section id="analysis" className="scroll-mt-20 border-b border-line">
         <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
           <SectionHead
-            eyebrow="Additional analysis"
-            title="Beyond the table — our reading."
-            lede="The four surprises above come straight from the comparison table. Going further, six patterns emerge when the fourteen stories are read as one dataset — about effort, money, ecosystems, timing, trust, and the words people use for the things they own."
+            eyebrow="Group analysis · revised insights"
+            title="What the group concluded."
+            lede="Reading the fourteen stories as one dataset, the group revised its initial understanding of consumer involvement. Eight conclusions — on similarities, involvement, surprising cases, motivations, life stages, and how channels shape satisfaction."
           />
           <div className="mt-12 grid gap-px overflow-hidden rounded-xl border border-line bg-line md:grid-cols-2">
-            {analysisNotes.map((note, i) => (
+            {groupAnalysis.map((note, i) => (
               <Reveal key={note.n} delay={(i % 2) * 70} className="h-full">
-                <article className="flex h-full flex-col bg-card p-6 sm:p-8">
+                <article className="h-full bg-card p-6 sm:p-8">
                   <p className="tnum font-mono text-[11px] text-accent">
                     {note.n}
                   </p>
@@ -408,6 +412,39 @@ export default function Home() {
                     <p
                       key={para.slice(0, 32)}
                       className="mt-3 text-sm leading-relaxed text-ink-soft"
+                    >
+                      {para}
+                    </p>
+                  ))}
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============ BEYOND THE TABLE ============ */}
+      <section className="border-b border-line bg-paper-deep/50">
+        <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
+          <SectionHead
+            eyebrow="Further patterns"
+            title="Beyond the table — our reading."
+            lede="Six more patterns emerge when the stories are cross-examined — about effort, money, ecosystems, timing, trust, and the words people use for the things they own."
+          />
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {analysisNotes.map((note, i) => (
+              <Reveal key={note.n} delay={(i % 3) * 60} className="h-full">
+                <article className="flex h-full flex-col rounded-xl border border-line bg-card p-6">
+                  <p className="tnum font-mono text-[11px] text-accent">
+                    {note.n}
+                  </p>
+                  <h3 className="font-display mt-2 text-xl leading-snug font-semibold tracking-tight text-balance">
+                    {note.title}
+                  </h3>
+                  {note.body.map((para) => (
+                    <p
+                      key={para.slice(0, 32)}
+                      className="mt-3 text-[13.5px] leading-relaxed text-ink-soft"
                     >
                       {para}
                     </p>
